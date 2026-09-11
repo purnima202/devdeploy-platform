@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevDeploy Platform</title>
+</head>
+<body>
+
+    <h1>DevDeploy Platform</h1>
+
+    <p>Full-stack Docker deployment project</p>
+
+    <h2>Projects</h2>
+
+    <div id="projects"></div>
+
+    <script>
+        fetch("/api/projects")
+            .then(response => response.json())
+            .then(projects => {
+                const container = document.getElementById("projects");
+
+                projects.forEach(project => {
+                    const item = document.createElement("p");
+
+                    item.textContent =
+                        `${project.name} - ${project.status}`;
+
+                    container.appendChild(item);
+                });
+            })
+            .catch(error => {
+                console.error("Error fetching projects:", error);
+            });
+    </script>
+
+</body>
+</html>
